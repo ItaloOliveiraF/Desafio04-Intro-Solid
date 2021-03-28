@@ -1,1 +1,1 @@
-(API documentation)[http://localhost:3333/api-docs]
+[API documentation](http://localhost:3333/api-docs)
