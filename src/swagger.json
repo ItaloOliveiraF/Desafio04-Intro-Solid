@@ -145,6 +145,12 @@
                         "required": true,
                         "schema":{
                             "type": "string"
+                        },
+                        "examples":{
+                            "user_id":{
+                                "type": "string",
+                                "value": "fc3e7b91-fdca-4a97-b09e-6f17c603754c"
+                            }
                         }
                     }
                 ],
@@ -197,10 +203,16 @@
                     {
                         "name": "user_id",
                         "in":"path",
-                        "description": "User ID to turn as admin",
+                        "description": "User ID to turn as admin.",
                         "required": true,
                         "schema":{
                             "type": "string"
+                        },
+                        "examples":{
+                            "user_id":{
+                                "type": "string",
+                                "value": "fc3e7b91-fdca-4a97-b09e-6f17c603754c"
+                            }
                         }
                     }
                 ],
