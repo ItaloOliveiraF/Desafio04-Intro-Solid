@@ -1,0 +1,249 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "UserJs",
+        "description": "This is a User Management API",
+        "version": "1.0.0",
+        "contact": {
+            "name": "Ítalo Olivera",
+            "email": "itolifernandes@gmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new User",
+                "description": "Create a new User from a json object. The 'admin' property always be false.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User name sample",
+                                    "email": "sample@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties": {
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "crated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "List all users",
+                "description": "Gets a list of all users. The user must have administrator permission to make this request.",
+                "parameters":[{
+                    "name": "user_id",
+                    "in": "header",
+                    "description": "User ID who made the request. Who should be an admin",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }],
+                "responses": {
+                    "200":{
+                        "description": "Success",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type": "object",
+                                        "properties": {
+                                            "id":{
+                                                "type": "string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "name": {
+                                                "type":"string"
+                                            },
+                                            "admin": {
+                                                "type": "boolean"
+                                            },
+                                            "crated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Not authorized operation"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get a user profile",
+                "description": "Receives a user_id and returns the corresponding user profile.",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in":"path",
+                        "description": "User ID to turn as admin",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "crated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not exists"
+                    }
+                }
+
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Turn an user as admin",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in":"path",
+                        "description": "User ID to turn as admin",
+                        "required": true,
+                        "schema":{
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "id":{
+                                            "type": "string"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "crated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not exists"
+                    }
+                }
+            }
+        }
+        
+    }
+}
